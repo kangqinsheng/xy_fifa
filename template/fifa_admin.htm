@@ -7,22 +7,22 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script type="text/javascript" src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <!--图片-->
-    <link rel="stylesheet" href="source/plugin/xy_love/template/css/mobile-uploadImg.css">
-    <script src="source/plugin/xy_love/template/js/mobile-uploadCompresserImg.js"></script>
+    <link rel="stylesheet" href="source/plugin/xy_fifa/template/css/mobile-uploadImg.css">
+    <script src="source/plugin/xy_fifa/template/js/mobile-uploadCompresserImg.js"></script>
     <script src="source/plugin/xy_fifa/template/js/mobile-uploadImg.js"></script>
 </head>
 <body>
     <ul class="nav nav-pills">
-        <li role="presentation" class="active"><a href="#">活动设置</a></li>
+        <li role="presentation" class="active"><a href="#">赛事管理</a></li>
         <li role="presentation"><a href="plugin.php?id=xy_fifa:admin&action=luck_list">中奖列表</a></li>
     </ul>
     <h3>
         赛事列表
     </h3>
     <div class="game_list">
-        <table class="table table-hover table-striped">
+        <table class="table table-hover table-striped text-center">
             <thead>
-            <tr>
+            <tr class="text-center">
                 <th>
                     甲队
                 </th>
@@ -53,7 +53,53 @@
             </tr>
             </thead>
             <tbody>
-
+            <!--{loop $lists $one}-->
+                <tr>
+                    <td>
+                        <span>$one['jia_name']</span>
+                        <img src="source/plugin/xy_fifa/uploads/$one['jia_img'].jpg" width="50px"/>
+                    </td>
+                    <td>
+                        <img src="source/plugin/xy_fifa/uploads/$one['yi_img'].jpg" width="50px"/>
+                        <span>$one['yi_name']</span>
+                    </td>
+                    <td>
+                        <!--{eval echo date("Y-m-d H:i",intval($one['start_time']))}-->
+                    </td>
+                    <td>
+                        <!--{if $one['is_end']==0}-->
+                        未填写
+                        <!--{else}-->
+                        <span style="color: red;">已填写</span>
+                        <!--{/if}-->
+                    </td>
+                    <td>
+                        <!--{if $one['fj_status']==0}-->
+                        $one['jia_name']<input style="width:40px;" class="jia_fen" value="$one['jia_fen']" type="number">VS<input style="width:40px;" class="yi_fen" value="$one['yi_fen']" type="number">$one['yi_name']
+                        <div class="btn btn-success update_end" data-id="$one['id']">修改结果</div>
+                        <!--{else}-->
+                        $one['jia_name']($one['jia_fen'])VS($one['yi_fen'])$one['yi_name']
+                        <!--{/if}-->
+                    </td>
+                    <td>
+                        $one['bf_integral']
+                    </td>
+                    <td>
+                        $one['basic_integral']
+                    </td>
+                    <td>
+                        $one['spf_integral']
+                    </td>
+                    <td>
+                        <!--{if $one['fj_status']==0}-->
+                        <div class="btn btn-success bj" data-id="$one['id']">颁奖</div>
+                        <!--{else}-->
+                        <span>已颁奖</span>
+                        <!--{/if}-->
+                        <div class="btn btn-danger delete_game" data-id="$one['id']">删除</div>
+                    </td>
+                </tr>
+            <!--{/loop}-->
             </tbody>
         </table>
     </div>
@@ -73,7 +119,7 @@
                                 </ul>
                             </div>
                             <div class="mbupload_bgimg">
-                                <div class="iconSendImg mbupload_addImg" style="background:url(source/plugin/xy_love/template/images/upload_carbg.png) no-repeat 50% 50%;"></div>
+                                <div class="iconSendImg mbupload_addImg" style="background:url(source/plugin/xy_fifa/template/images/upload_carbg.png) no-repeat 50% 50%;"></div>
                             </div>
                         </div>
                     </div>
@@ -104,7 +150,7 @@
 <!--图片-->
 <script type="text/javascript">
     var objUploadImgForm = {};
-    objUploadImgForm.uploadUrl = "plugin.php?id=xy_lottery:img"+""+"&action=add";//上传图片的地址
+    objUploadImgForm.uploadUrl = "plugin.php?id=xy_fifa:img"+""+"&action=add";//上传图片的地址
     objUploadImgForm.formHtmlId = "#uploadImgForm";//上传图片的ID
     objUploadImgForm.maxUpload = 2;//上传图片的最大张数
     objUploadImgForm.uploadMaxW = 2000; //生成图片的最大宽度
@@ -113,7 +159,7 @@
     objUploadImgForm.uploadPicSize = 8;//上传限制图片大小(MB)  默认8M
     objUploadImgForm.uploadPicMore = true;//是否允许多图上传  默认单张上传
     objUploadImgForm.onceMaxUpload = 10;//多图上传时，一次上传的最大张数 默认10
-    objUploadImgForm.uploadDefaultImgUrl = "source/plugin/xy_love/template/images/defaultImg.png";//压缩图片时的默认图片地址
+    objUploadImgForm.uploadDefaultImgUrl = "source/plugin/xy_fifa/template/images/defaultImg.png";//压缩图片时的默认图片地址
     mobileUploadImg(objUploadImgForm);
 </script>
 <script type="text/javascript">
@@ -126,7 +172,50 @@
                 alert("请填写完整数据");
             }
         })
-
+        //删除一场比赛
+        $(".delete_game").on("click",function(){
+            var id = $(this).attr("data-id");
+            if(confirm("确定删除？删除后不可恢复")){
+                $.post("plugin.php?id=xy_fifa:ajax",{"action":"delete_game","game_id":id},function(res){
+                    if(res.status==200){
+                        alert("删除成功");
+                        location.reload();
+                    }else{
+                        alert("删除失败:"+res.msg);
+                    }
+                },'json');
+            }
+        })
+        //更新比赛结果
+        $(".update_end").on('click',function(){
+            var id = $(this).attr("data-id");
+            var jia_fen = $(this).parent().find(".jia_fen").val();
+            var yi_fen = $(this).parent().find(".yi_fen").val();
+            if(confirm("保存此结果？结果会直接影响颁奖情况")){
+                $.post("plugin.php?id=xy_fifa:ajax",{"action":"update_end","game_id":id,"jia_fen":jia_fen,"yi_fen":yi_fen},function(res){
+                    if(res.status==200){
+                        alert("保存成功，可以颁奖");
+                        location.reload();
+                    }else{
+                        alert("保存失败:"+res.msg);
+                    }
+                },'json');
+            }
+        })
+        //为比赛结果派发奖励
+        $(".bj").on("click",function(){
+            var id = $(this).attr("data-id");
+            if(confirm("比赛结果？检查正确结果进行颁奖")){
+                $.post("plugin.php?id=xy_fifa:ajax",{"action":"bj","game_id":id},function(res){
+                    if(res.status==200){
+                        alert("颁奖成功");
+                        location.reload();
+                    }else{
+                        alert("颁奖失败:"+res.msg);
+                    }
+                },'json');
+            }
+        })
     })
 </script>
 </html>

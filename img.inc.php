@@ -14,7 +14,7 @@ if($action == "add"){
     if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64, $result)){
         $type = $result[2];
         if($type = "jpeg")$type = "jpg";
-        $new_file = "source/plugin/xy_lottery/uploads/".$filename."_".$rand.".{$type}";
+        $new_file = "source/plugin/xy_fifa/uploads/".$filename."_".$rand.".{$type}";
         file_put_contents($new_file, base64_decode(str_replace($result[1], '', $base64)));
     }
     $data['errCode'] = 0;
@@ -23,6 +23,6 @@ if($action == "add"){
     echo (json_encode($data));
 }elseif($action == "delete"){
     $title = $_GET['title'];
-    $new_file = "source/plugin/xy_lottery/uploads/{$title}.jpg";
+    $new_file = "source/plugin/xy_fifa/uploads/{$title}.jpg";
     unlink($new_file);
 }

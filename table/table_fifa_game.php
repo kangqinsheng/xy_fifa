@@ -28,4 +28,22 @@ class table_fifa_game extends discuz_table
         $data = DB::fetch_all("select * from %t",array($this->_table));
         return $data;
     }
+    //删除数据
+    public function delete_data($game_id)
+    {
+        $res = DB::delete($this->_table,array("id"=>$game_id));
+        return $res;
+    }
+    //更新数据
+
+    /**
+     * @param $data 修改的数据
+     * @param $condition 修改条件
+     * @return bool
+     */
+    public function update_data($data,$condition)
+    {
+        $res = DB::update($this->_table,$data,$condition);
+        return $res;
+    }
 }

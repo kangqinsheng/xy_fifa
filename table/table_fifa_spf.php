@@ -28,4 +28,9 @@ class table_fifa_spf extends discuz_table
         $data = DB::fetch_all("select * from %t",array($this->_table));
         return $data;
     }
+    //查看某比赛中奖人员
+    public function is_luck($game_id,$type){
+        $data = DB::fetch_all("select * from %t where `sai_id`=%i and `cai_spf`=%i",array($this->_table,$game_id,$type));
+        return$data;
+    }
 }

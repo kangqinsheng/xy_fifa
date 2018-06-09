@@ -28,4 +28,14 @@ class table_fifa_bifen extends discuz_table
         $data = DB::fetch_all("select * from %t",array($this->_table));
         return $data;
     }
+    //获取某场比赛比分猜中的记录
+    public function is_luck($game_id,$jia_fen,$yi_fen){
+        $data = DB::fetch_all("select * from %t where `game_id`=%i and `cai_jia`=%i and `cai_yi`=%i",array($this->_table,$game_id,$jia_fen,$yi_fen));
+        return $data;
+    }
+    //获取某场比赛投注人数
+    public function game_all($game_id){
+        $res = DB::result_first("select * from %t where `game_id`=%i",array($this->_table,$game_id));
+        return $res;
+    }
 }

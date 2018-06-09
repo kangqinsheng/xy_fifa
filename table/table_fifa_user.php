@@ -18,9 +18,9 @@ class table_fifa_user extends discuz_table
         $res = DB::insert($this->_table,$data,true);
         return $res;
     }
-    //通过id获取数据
-    public function get_by_id($id){
-        $data = DB::fetch_first("select * from %t where `id`=%i",array($this->_table,$id));
+    //通过u_id获取数据
+    public function get_by_uid($id){
+        $data = DB::fetch_first("select * from %t where `u_id`=%i",array($this->_table,$id));
         return $data;
     }
     //获取所有数据

@@ -9,32 +9,41 @@
 </head>
 <body>
     <ul class="nav nav-pills">
-        <li role="presentation"><a href="plugin.php?id=xy_fifa:admin&action=game">活动设置</a></li>
+        <li role="presentation"><a href="plugin.php?id=xy_fifa:admin&action=game">赛事管理</a></li>
         <li role="presentation" class="active"><a href="#">中奖列表</a></li>
     </ul>
-    <table id="searchData" class="table table-hover table-striped">
-        <thead>
-            <tr>
-                <th>中奖人昵称</th>
-                <th>中奖人电话</th>
-                <th>奖励积分</th>
-                <th>中奖场次</th>
-                <th>兑换</th>
-            </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-    </table>
     <div class="data_content">
         <table class="table table-hover table-striped">
             <tr>
                 <th>中奖人昵称</th>
                 <th>中奖人电话</th>
-                <th>奖品积分</th>
+                <th>奖励积分</th>
                 <th>中奖场次</th>
-                <th>兑换</th>
+                <th>兑换状态</th>
             </tr>
+            <!--{loop $luck_lists $one}-->
+            <tr>
+                <td>
+                    $one['user']['u_nickname']
+                </td>
+                <td>
+                    $one['user']['u_phone']
+                </td>
+                <td>
+                    $one['info']['luck_integral']
+                </td>
+                <td>
+                    {$one['game']['jia_name']}VS{$one['game']['yi_name']}
+                </td>
+                <td>
+                    <!--{if $one['info']['dh_status']==0}-->
+                        未兑换
+                    <!--{else}-->
+                        已兑换
+                    <!--{/if}-->
+                </td>
+            </tr>
+            <!--{/loop}-->
         </table>
     </div>
     <nav aria-label="Page navigation">
@@ -44,13 +53,13 @@
                     <span aria-hidden="true">首页</span>
                 </a>
             </li>
-            <li class="previous"><!--{if $page > 1}--><a href="{$prePageUrl}">{lang tom_yaoyiyao:pre_page}</a><!--{else}--><span>{lang tom_yaoyiyao:pre_page}</span><!--{/if}--></li>
+            <li class="previous"><!--{if $page > 1}--><a href="{$prePageUrl}">上一页</a><!--{else}--><span>上一页</span><!--{/if}--></li>
             <li><span>{$page}/{$allPageNum}</span></li>
             <li class="next">
                 <!--{if $showNextPage == 1}-->
-                <a href="{$nextPageUrl}">{lang tom_yaoyiyao:next_page}</a>
+                <a href="{$nextPageUrl}">下一页</a>
                 <!--{else}-->
-                <span>{lang tom_yaoyiyao:next_page}</span>
+                <span>下一页</span>
                 <!--{/if}-->
             </li>
             <li>
