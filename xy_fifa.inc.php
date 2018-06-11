@@ -77,6 +77,7 @@ if($page_to=="my_luck"){
         $my_luck[$key]['game_info'] = $gameinfo;
     }
     var_dump($my_luck);
+    die();
 }
 //跳转对应页面
 include template($page_to,"","source/plugin/xy_fifa/template");

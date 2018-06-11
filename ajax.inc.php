@@ -20,12 +20,18 @@ if($action == "delete_game"){
     $game_id = intval($_POST['game_id']);
     $jia_fen = intval($_POST['jia_fen']);
     $yi_fen = intval($_POST['yi_fen']);
-    $data = array("jia_fen"=>$jia_fen,"yi_fen"=>$yi_fen,"is_end"=>1);
-    $res =C::t("#xy_fifa#fifa_game")->update_data($data,array("id"=>$game_id));
-    if($res){
-        echo json_encode(array("status"=>200,"msg"=>"success"));
+    //查看比赛结果
+    $res =C::t("#xy_fifa#fifa_game")->get_by_id($game_id);
+    if(time()>intval($res["start_time"])){
+        $data = array("jia_fen"=>$jia_fen,"yi_fen"=>$yi_fen,"is_end"=>1);
+        $res =C::t("#xy_fifa#fifa_game")->update_data($data,array("id"=>$game_id));
+        if($res){
+            echo json_encode(array("status"=>200,"msg"=>"success"));
+        }else{
+            echo json_encode(array("status"=>500,"msg"=>"no data update"));
+        }
     }else{
-        echo json_encode(array("status"=>500,"msg"=>"no data update"));
+        echo json_encode(array("status"=>500,"msg"=>"not end time"));
     }
 }elseif($action=="bj"){
     $game_id = intval($_POST['game_id']);
