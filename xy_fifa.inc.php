@@ -10,14 +10,14 @@ require_once "class/DataHead.php";
 if($_POST['ajax']){
     $u_id = intval($_POST['u_id']);
     $action_id = intval($_POST['action_id']);
-    $user = new User(43985);
+    $user = new User($u_id);
     //如果是ajax请求
     $action = $_POST['ajax'];
     //执行请求
     $res = $user->$action($action_id);
     echo json_encode($res);
 }
-$page_to = $_GET['page_to']?$_GET['page_to']:"fifa_home";
+$page_to = $_GET['page_to']?$_GET['page_to']:"fifa_home";//默认显示主页
 if($page_to=="fifa_home"){
     //获取当前用户对象
     $user = new User(43985);
@@ -25,9 +25,18 @@ if($page_to=="fifa_home"){
         //获取赛事列表
         $lists = C::t("#xy_fifa#fifa_game")->get_all_list();
     }
+    $ke_tou = array();//可投注数据
+    $no_tou = array();//不可投注数据
+    foreach ($lists as $key=>$val){
+        if($val['start_time']>time){
+            $ke_tou[] = $val;
+        }else{
+            $no_tou[] = $val;
+        }
+    }
 }
 $u_id = intval($_GET['u_id']);
-if($page_to=="fifa_home") {
+if($page_to=="fifa_info") {
     $game_id = intval($_GET['game_id']);
     $user = new User($u_id);
     //获取对应比赛详情页内容
@@ -35,6 +44,12 @@ if($page_to=="fifa_home") {
     //获取比赛奖池
     $dataholder = new DataHead();
     $count_int = $dataholder->count_integral($game_id);
+    //获取访问用户已投注数
+    $max_bifen_times = $user->max_bifen_times;
+    $max_spf_times = $user->max_spf_times;
+    $my_bifen_times = C::t("#xy_fifa#fifa_bifen")->game_tou_times($game_id,$user->u_id);
+    $my_spf_times = C::t("#xy_fifa#fifa_spf")->game_tou_times($game_id,$user->u_id);
+    //投注列表显示最新记录
     $limit = 50;
     //获取比赛比分投注情况
     $bifen_lists = C::t("#xy_fifa#fifa_bifen")->get_some_limit($game_id,$limit);
