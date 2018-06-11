@@ -28,9 +28,20 @@ class table_fifa_lucker extends discuz_table
         $res = DB::result_first("select count(*) from %t",array($this->_table));
         return $res;
     }
-    //获取所有数据
+    //获取分页数据
     public function get_all_list($start,$size){
         $data = DB::fetch_all("select * from %t order by `sai_id` desc limit $start,$size",array($this->_table));
         return $data;
+    }
+    //获取某人所有数据
+    public function get_some_all($u_id){
+        $data = DB::fetch_all("select * from %t where `u_id`=%i order by `sai_id`",array($this->_table,$u_id));
+        return $data;
+    }
+    //更新兑换状态
+    public function update_data($data,$condition)
+    {
+        $res = DB::update($this->_table,$data,$condition);
+        return $res;
     }
 }

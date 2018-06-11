@@ -9,7 +9,7 @@
 class DataHead
 {
     /**
-     * 获取游戏信息
+     * 获取比赛信息
      */
     public function get_one_game($game_id){
         $data = C::t("#xy_fifa#fifa_game")->get_by_id($game_id);
@@ -84,6 +84,11 @@ class DataHead
         return array("status"=>200,'msg'=>"success data");
     }
 
+    /**
+     * 查看当场比赛比分奖池
+     * @param $game_id
+     * @return int
+     */
     public function count_integral($game_id){
         //查看比赛结果
         $res =C::t("#xy_fifa#fifa_game")->get_by_id($game_id);

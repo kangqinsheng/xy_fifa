@@ -28,9 +28,19 @@ class table_fifa_spf extends discuz_table
         $data = DB::fetch_all("select * from %t",array($this->_table));
         return $data;
     }
+    //获取某场比赛投注记录
+    public function get_some_limit($game_id,$limit){
+        $data = DB::fetch_all("select * from %t where `sai_id`=%i ORDER by `cai_time` desc limit 0,$limit ",array($this->_table,$game_id));
+        return $data;
+    }
     //查看某比赛中奖人员
     public function is_luck($game_id,$type){
         $data = DB::fetch_all("select * from %t where `sai_id`=%i and `cai_spf`=%i",array($this->_table,$game_id,$type));
         return$data;
+    }
+    //查看某人某场比赛已投注数
+    public function game_tou_times($game_id,$u_id){
+        $res = DB::result_first("select count(*) from %t where `game_id`=%i and `u_id`=%i",array($this->_table,$game_id,$u_id));
+        return $res;
     }
 }
