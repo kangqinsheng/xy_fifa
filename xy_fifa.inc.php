@@ -28,15 +28,21 @@ if($page_to=="fifa_home"){
     $ke_tou = array();//可投注数据
     $no_tou = array();//不可投注数据
     foreach ($lists as $key=>$val){
-        if($val['start_time']>time){
+        if($val['start_time']>time()){
             $ke_tou[] = $val;
         }else{
             $no_tou[] = $val;
         }
     }
 }
-$u_id = intval($_GET['u_id']);
-if($page_to=="fifa_info") {
+session_start();
+$u_id = intval($_GET['u_id'])?intval($_GET['u_id']):$_SESSION['u_id'];
+if($page_to=="fifa_info"){
+    //测试颁奖数据
+    $my_jiang = C::t("#xy_fifa#fifa_lucker")->get_cont();
+    var_dump($my_jiang);
+    die();
+
     $game_id = intval($_GET['game_id']);
     $user = new User($u_id);
     //获取对应比赛详情页内容
@@ -56,16 +62,16 @@ if($page_to=="fifa_info") {
 
     //获取对应用户昵称
     foreach ($bifen_lists as $key=>$val){
-        $u_nickname = C::t("#xy_fifa#fifa_user")->get_by_uid($val['u_id']);
-        $bifen_lists[$key]['u_nickname'] = $u_nickname;
+        $user_data = C::t("#xy_fifa#fifa_user")->get_by_uid($val['u_id']);
+        $bifen_lists[$key]['u_nickname'] = $user_data['u_nickname'];
     }
     //获取比赛胜平负投注情况
 
     $spf_lists = C::t("#xy_fifa#fifa_spf")->get_some_limit($game_id,$limit);
     //获取对应用户昵称
     foreach ($spf_lists as $key=>$val){
-        $u_nickname = C::t("#xy_fifa#fifa_user")->get_by_uid($val['u_id']);
-        $spf_lists[$key]['u_nickname'] = $u_nickname;
+        $user_data = C::t("#xy_fifa#fifa_user")->get_by_uid($val['u_id']);
+        $spf_lists[$key]['u_nickname'] = $user_data['u_nickname'];
     }
 }
 if($page_to=="my_luck") {

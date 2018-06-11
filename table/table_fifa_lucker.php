@@ -23,6 +23,11 @@ class table_fifa_lucker extends discuz_table
         $data = DB::fetch_first("select * from %t where `id`=%i",array($this->_table,$id));
         return $data;
     }
+    //通过u_id获取数据
+    public function get_by_uid($uid){
+        $data = DB::fetch_all("select * from %t where `u_id`=%i",array($this->_table,$uid));
+        return $data;
+    }
     //获取总条数
     public function get_cont(){
         $res = DB::result_first("select count(*) from %t",array($this->_table));

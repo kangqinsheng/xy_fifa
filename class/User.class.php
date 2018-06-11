@@ -62,7 +62,7 @@ class User
             $this->u_phone = $info['member_phone'];
             //检测数据库
             $res = C::t("#xy_fifa#fifa_user")->get_by_uid($this->u_id);
-            if(!isset($res)){
+            if(!isset($res['id'])){
                 //插入数据
                 $data = array("u_id"=>$this->u_id,"u_nickname"=>$this->u_nickname,"u_phone"=>$this->u_phone);
                 $res = C::t("#xy_fifa#fifa_user")->add_data($data);

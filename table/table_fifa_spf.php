@@ -40,7 +40,7 @@ class table_fifa_spf extends discuz_table
     }
     //查看某人某场比赛已投注数
     public function game_tou_times($game_id,$u_id){
-        $res = DB::result_first("select count(*) from %t where `game_id`=%i and `u_id`=%i",array($this->_table,$game_id,$u_id));
+        $res = DB::result_first("select count(*) from %t where `sai_id`=%i and `u_id`=%i",array($this->_table,$game_id,$u_id));
         return $res;
     }
 }

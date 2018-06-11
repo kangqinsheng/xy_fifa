@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="GBK">
+    <title>主页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="source/plugin/summer_lottery/template/style.css" />
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="ke_tou">
+        <!--{loop $ke_tou $val}-->
+        <div onclick="javascript:location.href='plugin.php?id=xy_fifa&page_to=fifa_info&game_id=$val[id]'">
+            <img src="source/plugin/xy_fifa/uploads/$val['jia_img'].jpg" style="width: 50px;height: 50px;"/>
+            <span>$val['jia_name']</span>
+            <span style="color: red;">VS</span>
+            <span>$val['yi_name']</span>
+            <img src="source/plugin/xy_fifa/uploads/$val['yi_img'].jpg" style="width: 50px;height: 50px;"/>
+            <span>
+                <!--{eval echo date("m-d H:i",$val['start_time'])}-->
+            </span>
+            <span style="color:red;">可投注</span>
+        </div>
+        <!--{/loop}-->
+    </div>
+
+    <div class="no_tou">
+        <!--{loop $no_tou $val}-->
+        <div onclick="javascript:location.href='plugin.php?id=xy_fifa&page_to=fifa_info&game_id=$val[id]'">
+            <img src="source/plugin/xy_fifa/uploads/$val['jia_img'].jpg" style="width: 50px;height: 50px;"/>
+            <span>$val['jia_name']</span>
+            <span style="color: red;">VS</span>
+            <span>$val['yi_name']</span>
+            <img src="source/plugin/xy_fifa/uploads/$val['yi_img'].jpg" style="width: 50px;height: 50px;"/>
+            <span>
+                <!--{eval echo date("m-d H:i",$val['start_time'])}-->
+            </span>
+            <span>不可投注</span>
+        </div>
+        <!--{/loop}-->
+    </div>
+</body>
+</html>

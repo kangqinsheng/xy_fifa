@@ -58,7 +58,7 @@ if($action == "delete_game"){
         $spf_lucks = C::t("#xy_fifa#fifa_spf")->is_luck($game_id,$type);
         //每人获得积分
         $one_int1 = intval($res['spf_integral']);
-        foreach($bf_lucks as $key=>$val){
+        foreach($spf_lucks as $key=>$val){
             $arr = array("u_id"=>$val['u_id'],"sai_id"=>$val['sai_id'],"luck_integral"=>$one_int1);
             $luckers[] = $arr;
         }
