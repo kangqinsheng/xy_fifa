@@ -38,11 +38,6 @@ if($page_to=="fifa_home"){
 session_start();
 $u_id = intval($_GET['u_id'])?intval($_GET['u_id']):$_SESSION['u_id'];
 if($page_to=="fifa_info"){
-    //测试颁奖数据
-    $my_jiang = C::t("#xy_fifa#fifa_lucker")->get_cont();
-    var_dump($my_jiang);
-    die();
-
     $game_id = intval($_GET['game_id']);
     $user = new User($u_id);
     //获取对应比赛详情页内容
@@ -74,13 +69,14 @@ if($page_to=="fifa_info"){
         $spf_lists[$key]['u_nickname'] = $user_data['u_nickname'];
     }
 }
-if($page_to=="my_luck") {
+if($page_to=="my_luck"){
     $user = new User($u_id);
     $my_luck = C::t("#xy_fifa#fifa_lucker")->get_some_all($user->u_id);
     foreach($my_luck as $key=>$val){
         $gameinfo = C::t("#xy_fifa#fifa_game")->get_by_id(intval($val['sai_id']));
         $my_luck[$key]['game_info'] = $gameinfo;
     }
+    var_dump($my_luck);
 }
 //跳转对应页面
 include template($page_to,"","source/plugin/xy_fifa/template");
