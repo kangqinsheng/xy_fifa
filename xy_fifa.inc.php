@@ -76,8 +76,13 @@ if($page_to=="my_luck"){
         $gameinfo = C::t("#xy_fifa#fifa_game")->get_by_id(intval($val['sai_id']));
         $my_luck[$key]['game_info'] = $gameinfo;
     }
-    var_dump($my_luck);
-    die();
+}
+if($page_to=="my_tou"){
+    $user = new User($u_id);
+    $res = $user->my_tou_lists();
+    if($res['status']==200){
+        $my_lists = $res['res'];
+    }
 }
 //跳转对应页面
 include template($page_to,"","source/plugin/xy_fifa/template");

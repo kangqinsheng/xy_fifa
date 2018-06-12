@@ -78,6 +78,7 @@ class User
     }
 
     /**
+     * 暂时没使用，分开两种方法写
      * @param $rule 投注方式 1比分,2胜平负
      * @return 返回积分状态
      */
@@ -224,7 +225,7 @@ class User
         if($luck['dh_status']==0) {
             $res = $this->change_integral(1, $luck_integral);
             if($res['status']==200){
-                $res = C::t("#xy_fifa#fifa_lucker")->update_data(array("dh_status"=>1),array($lucker_id));
+                $res = C::t("#xy_fifa#fifa_lucker")->update_data(array("dh_status"=>1),array('id'=>$lucker_id));
                 if($res){
                     return array("status"=>200,"msg"=>"success");
                 }else{
@@ -236,5 +237,22 @@ class User
         }else{
             return array("status"=>500,"msg"=>"no tow time dh");
         }
+    }
+
+    public function my_tou_lists(){
+        //获取我的比分投注
+        $my_bifen=C::t("#xy_fifa#fifa_bifen")->my_tou_all($this->u_id);
+        foreach($my_bifen as $key=>$val){
+            $gameinfo = C::t("#xy_fifa#fifa_game")->get_by_id(intval($val['game_id']));
+            $my_bifen[$key]['game_info'] = $gameinfo;
+        }
+        //获取我的胜平负投注
+        $my_spf=C::t("#xy_fifa#fifa_spf")->my_tou_all($this->u_id);
+        foreach($my_spf as $key=>$val){
+            $gameinfo = C::t("#xy_fifa#fifa_game")->get_by_id(intval($val['sai_id']));
+            $my_spf[$key]['game_info'] = $gameinfo;
+        }
+        $res = array("bifen"=>$my_bifen,"spf"=>$my_spf);
+        return array("status"=>200,"res"=>$res);
     }
 }

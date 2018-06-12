@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="GBK">
+    <title>我的中奖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="source/plugin/summer_lottery/template/style.css" />
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <!--{loop $my_luck $val}-->
+    <div>
+        <div>{$val['game_info']['jia_name']}---{$val['game_info']['jia_fen']}---获得奖励:{$val['luck_integral']}分</div>
+        <div>{$val['game_info']['yi_name']}---{$val['game_info']['yi_fen']}---
+            <!--{if $val['dh_status']==0}-->
+            <input id="dh_luck" data-id="{$val['id']}" value="兑换" type="button"/>
+            <!--{else}-->
+            已兑换
+            <!--{/if}-->
+        </div>
+    </div>
+    <!--{/loop}-->
+<script>
+    $(function(){
+        $("#dh_luck").on("click",function(){
+            if(confirm("确定兑换奖励?")){
+                var dh_id = $(this).attr("data-id");
+                $.post("plugin.php?id=xy_fifa",{"ajax":"lucker_dh","action_id":dh_id,"u_id":$u_id},function(res){
+                    if(res.status==200){
+                        alert("兑换成功");
+                    }else{
+                        alert(res.msg);
+                    }
+                },"json");
+            }
+        })
+    })
+</script>
+</body>
+</html>

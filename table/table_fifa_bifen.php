@@ -48,4 +48,9 @@ class table_fifa_bifen extends discuz_table
         $res = DB::result_first("select count(*) from %t where `game_id`=%i and `u_id`=%i",array($this->_table,$game_id,$u_id));
         return $res;
     }
+    //查看某人已投注数
+    public function my_tou_all($u_id){
+        $data = DB::fetch_all("select * from %t where `u_id`=%i",array($this->_table,$u_id));
+        return $data;
+    }
 }
