@@ -22,9 +22,8 @@ class User
     public function __construct($u_id)
     {
         $this->poster = new Poster();
-        $this->token = new OpenSSLEncryptDecrypt();
+        $this->token = new OpenSSLEncryptDecrypt($this->key);
         $this->data_head = new DataHead();
-        session_start();
         if(!isset($u_id)){
             //不知道用户UID，需获取
             $this->u_id =$this->get_user_id();

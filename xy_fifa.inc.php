@@ -7,6 +7,7 @@
  */
 require_once "class/User.class.php";
 require_once "class/DataHead.php";
+session_start();
 if($_POST['ajax']){
     $u_id = intval($_POST['u_id']);
     $action_id = intval($_POST['action_id']);
@@ -16,11 +17,13 @@ if($_POST['ajax']){
     //执行请求
     $res = $user->$action($action_id);
     echo json_encode($res);
+    die();
 }
 $page_to = $_GET['page_to']?$_GET['page_to']:"fifa_home";//默认显示主页
 if($page_to=="fifa_home"){
+    $u_id = $_SESSION['u_id'];
     //获取当前用户对象
-    $user = new User();
+    $user = new User($u_id);
     if(isset($user->u_id)){
         //获取赛事列表
         $lists = C::t("#xy_fifa#fifa_game")->get_all_list();
@@ -35,7 +38,6 @@ if($page_to=="fifa_home"){
         }
     }
 }
-session_start();
 $u_id = intval($_GET['u_id'])?intval($_GET['u_id']):$_SESSION['u_id'];
 if($page_to=="fifa_info"){
     $game_id = intval($_GET['game_id']);

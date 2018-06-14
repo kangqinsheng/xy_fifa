@@ -237,6 +237,7 @@ a:hover {
 }
 
 .modal-dialog {
+	position: absolute;
 	width: 75%;
 	margin: 0;
 	left: 50%;

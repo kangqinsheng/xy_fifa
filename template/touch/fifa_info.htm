@@ -70,8 +70,8 @@
 						<!--{if $gameinfo['start_time']>time()}-->
 						<div class="touzhu">
 							<span class="tou_spf" type-val="1">{$gameinfo['jia_name']} 赢</span><span class="tou_spf" type-val="2">平</span><span class="tou_spf" type-val="3">{$gameinfo['yi_name']} 赢</span>
-							<i>已投注次数：{$my_spf_times} / {$max_bifen_times}</i><i>单主消耗 {$gameinfo['spf_integral']} 积分</i>
-							<i>单主奖金
+							<i>已投注次数：{$my_spf_times} / {$max_spf_times}</i><i>单注消耗 {$gameinfo['spf_integral']} 积分</i>
+							<i>单注奖金
 								<!--{eval echo $gameinfo['spf_integral']*2}-->
 								 积分
 							</i>
@@ -157,7 +157,7 @@
 								<span id="tou_bifen">确 定</span>
 							</form>
 							<!--比分选择完-->
-							<i>已投注次数：{$my_bifen_times} / {$max_bifen_times}</i><i>单主消耗 {$gameinfo['bf_integral']} 积分</i>
+							<i>已投注次数：{$my_bifen_times} / {$max_bifen_times}</i><i>单注消耗 {$gameinfo['bf_integral']} 积分</i>
 						</div>
 						<!--{/if}-->
 						<!--最新投注-->
@@ -174,14 +174,28 @@
 					</div>
 				</div>
 			</div>
-
+			<div class="touzhu">
+				<!-- 投注后弹出层 -->
+				<div class="modal fade" style="position: absolute;" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-body">
+								<p style="line-height: 50px;" id="alert1"></p >
+								<input type="hidden" id="lab" value="">
+								<span id="continue"  data-dismiss="modal">确定</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 投注后弹出层完 -->
+			</div>
 			<div style="height: 61px; width: 100%;"></div>
 
 		</div>
 
 		<!--底部导航-->
 		<div class="bottom">
-			<a href="plugin.php?id=xy_fifa"><span class="glyphicon glyphicon-home"></span>首页</a>
+			<a href="plugin.php?id=xy_fifa&page_to=fifa_home"><span class="glyphicon glyphicon-home"></span>首页</a>
 			<a href="plugin.php?id=xy_fifa&page_to=my_tou"><span class="glyphicon glyphicon-screenshot"></span>我的投注</a>
 			<a href="plugin.php?id=xy_fifa&page_to=my_luck"><span class="glyphicon glyphicon-lock"></span>我的中奖</a>
 		</div>
@@ -194,32 +208,66 @@
 	</body>
 	<script>
         $(function(){
+            $('#myModal').on('hidden.bs.modal', function (e) {
+				var lab = $("#lab").val();
+                window.location.href="plugin.php?id=xy_fifa"+""+"&page_to=fifa_info&game_id=$gameinfo[id]&label="+lab;
+            })
+
             $("#tou_bifen").on("click",function(){
-                if(confirm("确定使用{$gameinfo['bf_integral']}积分分购买一注?")){
-                    var cai_jia = $("#cai_jia").val();
-                    var cai_yi = $("#cai_yi").val();
-                    $.post("plugin.php?id=xy_fifa",{"ajax":"tou_bifen","cai_jia":cai_jia,"cai_yi":cai_yi,"action_id":$gameinfo['id'],"u_id":$u_id},function(res){
-                        if(res.status==200){
-                            alert("投注成功");
-                            window.location.href="plugin.php?id=xy_fifa&page_to=fifa_info&game_id=$gameinfo[id]&label=bifen";
-                        }else{
-                            alert("投注失败!");
-                        }
-                    },"json");
-                }
+                if($my_bifen_times < $max_bifen_times) {
+                    if (confirm("确定使用{$gameinfo['bf_integral']}积分分购买一注?")) {
+                        var cai_jia = $("#cai_jia").val();
+                        var cai_yi = $("#cai_yi").val();
+                        $.post("plugin.php?id=xy_fifa", {
+                            "ajax": "tou_bifen",
+                            "cai_jia": cai_jia,
+                            "cai_yi": cai_yi,
+                            "action_id": $gameinfo['id'],
+                            "u_id": $u_id
+                        }, function (res) {
+                            if (res.status == 200) {
+                                $("#alert1").text("投注成功");
+                                $("#lab").val("bifen");
+                                $("#myModal").modal('show');
+                            } else {
+                                $("#alert1").text("投注失败");
+                                $("#lab").val("bifen");
+                                $("#myModal").modal('show');
+                            }
+                        }, 'json');
+                    }
+                }else{
+                    $("#alert1").text("该模式已达到投注上限");
+                    $("#lab").val("bifen");
+                    $("#myModal").modal('show');
+				}
             })
             $(".tou_spf").on("click",function(){
-                if(confirm("确定使用{$gameinfo['spf_integral']}积分分购买一注?")){
-                    var cai_spf = $(this).attr("type-val");
-                    $.post("plugin.php?id=xy_fifa",{"ajax":"tou_spf","cai_spf":cai_spf,"action_id":$gameinfo['id'],"u_id":$u_id},function(res){
-                        if(res.status==200){
-                            alert("投注成功");
-                            window.location.href="plugin.php?id=xy_fifa&page_to=fifa_info&game_id=$gameinfo[id]&label=spf";
-                        }else{
-                            alert("投注失败!");
-                        }
-                    },"json");
-                }
+                if($my_spf_times < $max_spf_times) {
+                    if (confirm("确定使用{$gameinfo['spf_integral']}积分分购买一注?")) {
+                        var cai_spf = $(this).attr("type-val");
+                        $.post("plugin.php?id=xy_fifa", {
+                            "ajax": "tou_spf",
+                            "cai_spf": cai_spf,
+                            "action_id": $gameinfo['id'],
+                            "u_id": $u_id
+                        }, function (res) {
+                            if (res.status == 200) {
+                                $("#alert1").text("投注成功");
+                                $("#lab").val("spf");
+                                $("#myModal").modal('show');
+                            } else {
+                                $("#alert1").text("投注失败");
+                                $("#lab").val("spf");
+                                $("#myModal").modal('show');
+                            }
+                        }, 'json');
+                    }
+                }else{
+                    $("#alert1").text("该模式已达到投注上限");
+                    $("#lab").val("spf");
+                    $("#myModal").modal('show');
+				}
             })
         })
 	</script>

@@ -208,7 +208,7 @@
             if(confirm("比赛结果？检查正确结果进行颁奖")){
                 $.post("plugin.php?id=xy_fifa:ajax",{"action":"bj","game_id":id},function(res){
                     if(res.status==200){
-                        alert("颁奖成功");
+                        alert("颁奖成功，"+res.msg);
                         location.reload();
                     }else{
                         alert("颁奖失败:"+res.msg);
