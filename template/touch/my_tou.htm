@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="GBK">
+		<title>投注记录</title>
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+		<!-- 新 Bootstrap 核心 CSS 文件 -->
+		<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+		<link rel="stylesheet" href="source/plugin/xy_fifa/template/css/style.css" />
+
+		<!-- HTML5 Shiv 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+		<!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+		<!--[if lt IE 9]>
+         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      <![endif]-->
+	</head>
+
+	<body>
+
+		<div class="container">
+			<!--主题-->
+			<div class="banner">
+				<img src="source/plugin/xy_fifa/template/images/banner2.jpg" />
+			</div>
+			<ul id="myTab" class="nav nav-tabs">
+				<li class="active">
+					<a href="#home" data-toggle="tab">胜负</a>
+				</li>
+				<li>
+					<a href="#ios" data-toggle="tab">比分</a>
+				</li>
+			</ul>
+			<div id="myTabContent" class="tab-content">
+				<div class="tab-pane fade in active" id="home">
+					<!--{loop $my_lists['spf'] $val}-->
+					<div class="team-list" onclick="javascript:location.href='plugin.php?id=xy_fifa&page_to=fifa_info&game_id=$val[game_info][id]'">
+						<div class="ce-contry">
+							<div class="team" style="background: url(source/plugin/xy_fifa/uploads/$val['game_info']['jia_img'].jpg) center center / contain no-repeat; border: 1px solid transparent;"></div>
+							<span>{$val['game_info']['jia_name']}</span>
+						</div>
+						<div class="center my">
+							<em>VS</em>
+							<span>
+								<!--{if $val['cai_spf']==1}-->
+            					{$val['game_info']['jia_name']} 赢
+								<!--{/if}-->
+								<!--{if $val['cai_spf']==2}-->
+            					平
+								<!--{/if}-->
+								<!--{if $val['cai_spf']==3}-->
+            					{$val['game_info']['yi_name']}  赢
+								<!--{/if}-->
+								<br />消耗 {$val['game_info']['spf_integral']} 积分
+							</span>
+						</div>
+						<div class="ce-contry">
+							<div class="team" style="background: url(source/plugin/xy_fifa/uploads/$val['game_info']['yi_img'].jpg) center center / contain no-repeat; border: 1px solid transparent;"></div>
+							<span>{$val['game_info']['yi_name']}</span>
+						</div>
+					</div>
+					<!--{/loop}-->
+				</div>
+				<div class="tab-pane fade" id="ios">
+					<!--{loop $my_lists['bifen'] $val}-->
+					<div class="team-list">
+						<div class="ce-contry">
+							<div class="team" style="background: url(source/plugin/xy_fifa/uploads/$val['game_info']['jia_img'].jpg) center center / contain no-repeat; border: 1px solid transparent;"></div>
+							<span>{$val['game_info']['jia_name']}</span>
+						</div>
+						<div class="center my">
+							<em>VS</em>
+							<span>{$val['cai_jia']}:{$val['cai_yi']}<br />消耗 {$val['game_info']['bf_integral']} 积分</span>
+						</div>
+						<div class="ce-contry">
+							<div class="team" style="background: url(source/plugin/xy_fifa/uploads/$val['game_info']['yi_img'].jpg) center center / contain no-repeat; border: 1px solid transparent;"></div>
+							<span>{$val['game_info']['yi_name']}</span>
+						</div>
+					</div>
+					<!--{/loop}-->
+				</div>
+			</div>
+
+			<div style="height: 61px; width: 100%;"></div>
+
+		</div>
+		
+		<!--底部导航-->
+		<div class="bottom">
+			<a href="plugin.php?id=xy_fifa"><span class="glyphicon glyphicon-home"></span>首页</a>
+			<a class="select" href="plugin.php?id=xy_fifa&page_to=my_tou"><span class="glyphicon glyphicon-screenshot"></span>我的投注</a>
+			<a href="plugin.php?id=xy_fifa&page_to=my_luck"><span class="glyphicon glyphicon-lock"></span>我的中奖</a>
+		</div>
+		
+		<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+		<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</body>
+
+</html>

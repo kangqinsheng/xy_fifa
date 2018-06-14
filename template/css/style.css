@@ -1,0 +1,425 @@
+body {
+	background: #ffffff;
+}
+
+ul,
+li {
+	padding: 0;
+	list-style: none;
+}
+
+.container {
+	padding: 0;
+}
+
+.bg {
+	color: #FFFFFF;
+	background: -webkit-linear-gradient(left, #0097ed, #0066d9);
+	/* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(right, #0097ed, #0066d9);
+	/* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(right, #0097ed, #0066d9);
+	/* Firefox 3.6 - 15 */
+	background: linear-gradient(to right, #0097ed, #0066d9);
+	/* 标准的语法（必须放在最后） */
+}
+
+
+/*主题*/
+
+.banner {
+	background: #f5f5f5;
+	width: 100%;
+	position: relative;
+}
+
+.banner img {
+	width: 100%;
+}
+
+.banner .gz {
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	background: rgba(0, 0, 0, .7);
+	color: #FFFFFF;
+	font-size: 12px;
+	padding: 5px 10px;
+	border-radius: 10px;
+}
+
+.banner .gz span {
+	margin-left: 5px;
+	top: 2px;
+}
+
+.banner .close {
+	color: #FFFFFF;
+	position: absolute;
+	right: 15px;
+	opacity: .8;
+}
+
+.banner h4,
+h5 {
+	text-align: center;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+.banner p {
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+a {
+	color: #555;
+}
+
+a:focus,
+a:hover {
+	color: #1c9300;
+}
+
+
+/*投注切换*/
+
+#myTab {
+	padding: 10px;
+	border: 0;
+	text-align: center;
+}
+
+.nav-tabs>li {
+	display: inline-block;
+	width: 50%;
+	margin: 0;
+}
+
+.nav-tabs>li>a {
+	margin: 0;
+	border: #F5F5F5 solid 1px;
+	border-radius: 0;
+	line-height: 24px;
+	letter-spacing: 3px;
+	font-weight: bold;
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+	border-radius: 0;
+	border: #F5F5F5 solid 1px;
+	/*background: #F5F5F5;*/
+	color: #FFFFFF;
+	background: -webkit-linear-gradient(left, #6bc2f5, #5196e6);
+	/* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(right, #6bc2f5, #5196e6);
+	/* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(right, #6bc2f5, #5196e6);
+	/* Firefox 3.6 - 15 */
+	background: linear-gradient(to right, #6bc2f5, #5196e6);
+	/* 标准的语法（必须放在最后） */
+}
+
+.tab-content {
+	padding: 0px 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: -10px;
+	border-left: #F5F5F5 solid 1px;
+	border-bottom: #F5F5F5 solid 1px;
+	border-right: #F5F5F5 solid 1px;
+	overflow: hidden;
+}
+
+.ce-contry {
+	width: 25%;
+	height: 84px;
+	float: left;
+}
+
+.ce-contry span {
+	text-align: center;
+	display: block;
+	line-height: 24px;
+}
+
+.ce-contry .team {
+	width: 60px;
+	height: 60px;
+	margin: auto;
+}
+
+.center {
+	width: 50%;
+	height: 84px;
+	float: left;
+	text-align: center;
+}
+
+.center em {
+	color: #000;
+	line-height: 40px;
+	display: block;
+	font-size: 20px;
+	margin-top: 10px;
+	font-style: normal;
+}
+
+.center span {
+	line-height: 24px;
+	display: block;
+}
+
+.team-list {
+	display: block;
+	overflow: hidden;
+	margin: 0px 0px 10px 0px;
+	position: relative;
+	border-top: #f5f5f5 solid 1px;
+	padding-top: 10px;
+}
+
+.q-bot {
+	margin: 0;
+}
+.team-list .my span{
+	font-size: 12px;
+	line-height: 18px;
+}
+.team-list .my em{
+	line-height: 30px;
+}
+.team-list:first-of-type {
+	border: 0;
+}
+
+.tab-content a:after {
+	content: "";
+	display: block;
+	width: 100%;
+	height: 1px;
+	background: #000;
+	position: absolute;
+	top: -10px;
+}
+
+.tab-content a:hover {
+	opacity: .6;
+}
+
+.bottom {
+	width: 100%;
+	height: 50px;
+	border-top: #ddd solid 1px;
+	position: fixed;
+	bottom: 0;
+	background: #F5F5F5;
+}
+
+.bottom .select {
+	color: #1c9300;
+}
+
+.bottom a {
+	width: 33.3333333%;
+	display: block;
+	float: left;
+	text-align: center;
+	text-decoration: none;
+}
+
+.bottom a span {
+	line-height: 24px;
+	display: block;
+	margin-top: 4px;
+}
+
+.modal-dialog {
+	width: 75%;
+	margin: 0;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.modal.in .modal-dialog {
+	transform: translate(-50%, -50%);
+}
+
+.modal.fade .modal-dialog {
+	transform: translate(-50%, -50%);
+}
+
+.touzhu {
+	text-align: center;
+	background: #F5F5F5;
+	padding-bottom: 10px;
+	padding-top: 15px;
+	border-radius: 20px;
+	margin-top: 10px;
+}
+
+.touzhu b {
+	display: block;
+	width: 100%;
+	line-height: 32px;
+	font-weight: normal;
+	color: #999;
+}
+
+.touzhu b font {
+	margin: 0px 5px;
+	color: #f00;
+}
+
+.touzhu span {
+	width: 28%;
+	display: inline-block;
+	margin: 2%;
+	line-height: 32px;
+	border-radius: 16px;
+	font-size: 12px;
+	color: #FFFFFF;
+	background: -webkit-linear-gradient(left, #0097ed, #0066d9);
+	/* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(right, #0097ed, #0066d9);
+	/* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(right, #0097ed, #0066d9);
+	/* Firefox 3.6 - 15 */
+	background: linear-gradient(to right, #0097ed, #0066d9);
+	/* 标准的语法（必须放在最后） */
+}
+
+.touzhu span:hover {
+	opacity: .8;
+}
+
+.touzhu i {
+	font-style: normal;
+	font-size: 12px;
+	display: inline-block;
+	margin-top: 10px;
+	margin-left: 2%;
+	margin-right: 4%;
+}
+
+.touzhu form {}
+
+.touzhu form select {
+	width: 20%;
+	display: inline-block;
+	margin: 2% 4%;
+	text-align-last: center;
+	color: #0066d9;
+	border: #0097ed solid 2px;
+	line-height: 32px;
+	border-radius: 16px;
+	text-align-last: center;
+	padding: 0 0 0 9%;
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+
+.touzhu form select option {
+	text-align: center;
+	text-align-last: center;
+}
+
+.form-group {
+	margin: 0;
+}
+
+.new-tz {
+	width: 100%;
+	border-top: #F5F5F5 solid 1px;
+	margin-top: 15px;
+}
+
+.new-tz h4 {
+	margin-top: 18px;
+	line-height: 24px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.new-tz li {
+	height: 30px;
+	line-height: 30px;
+	padding: 0px 10px;
+}
+
+.new-tz span {
+	display: block;
+	float: right;
+	color: #1c9300;
+}
+
+.new-tz .team {
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+}
+
+.p-list ul li{
+	padding: 10px;
+	border: #F5F5F5 solid 1px;
+	border-radius: 10px;
+	margin: 10px;
+	overflow: hidden;
+}
+.p-list ul li .left{
+	float: none;
+}
+.p-list ul li .left span{
+	line-height: 30px;
+	display: inline-block;
+	font-size: 12px;
+}
+.p-list ul li .left font{
+	line-height: 30px;
+	margin: 0px 10px;
+	font-weight: bold;
+	color: #f00;
+}
+.p-list ul li .left .team{
+	width: 30px;
+	height: 30px;
+	float: left;
+	margin-right: 8px;
+}
+.p-list ul li span{
+	display: inline-block;
+}
+.p-list .right{
+	float: right;
+}
+.p-list .right span{
+	line-height: 18px;
+	text-align: center;
+	display: inline-block;
+	margin: 13px;
+}
+.p-list .right font{
+	color: #1c9300;
+	display: block;
+	line-height: 18px;
+}
+.p-list .right .lq{
+	line-height: 16px;
+    font-size: 14px;
+    width: 44px;
+    font-size: 12px;
+    padding: 5px 10px;
+    display: inline-block;
+	border-radius: 5px;
+	text-align: center;
+}
+
+.p-list .right .bg:hover{
+	color: #FFFFFF;
+	opacity: 0.6;
+	text-decoration: none;
+}

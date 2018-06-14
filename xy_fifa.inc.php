@@ -20,7 +20,7 @@ if($_POST['ajax']){
 $page_to = $_GET['page_to']?$_GET['page_to']:"fifa_home";//默认显示主页
 if($page_to=="fifa_home"){
     //获取当前用户对象
-    $user = new User(43985);
+    $user = new User();
     if(isset($user->u_id)){
         //获取赛事列表
         $lists = C::t("#xy_fifa#fifa_game")->get_all_list();
@@ -39,12 +39,16 @@ session_start();
 $u_id = intval($_GET['u_id'])?intval($_GET['u_id']):$_SESSION['u_id'];
 if($page_to=="fifa_info"){
     $game_id = intval($_GET['game_id']);
+    //页面刷新默认选中
+    $label = $_GET['label']?$_GET['label']:"spf";
     $user = new User($u_id);
     //获取对应比赛详情页内容
     $gameinfo = C::t("#xy_fifa#fifa_game")->get_by_id($game_id);
     //获取比赛奖池
     $dataholder = new DataHead();
     $count_int = $dataholder->count_integral($game_id);
+    //奖池添加虚拟量
+    $count_int = $count_int+8000;
     //获取访问用户已投注数
     $max_bifen_times = $user->max_bifen_times;
     $max_spf_times = $user->max_spf_times;

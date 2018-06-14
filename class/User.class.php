@@ -229,7 +229,7 @@ class User
                 if($res){
                     return array("status"=>200,"msg"=>"success");
                 }else{
-                    return array("status"=>500,"msg"=>"update dh_staus fail");
+                    return array("status"=>500,"msg"=>"update dh_status fail");
                 }
             }else{
                 return array("status"=>500,"msg"=>$res['msg']);
