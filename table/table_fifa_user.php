@@ -28,4 +28,8 @@ class table_fifa_user extends discuz_table
         $data = DB::fetch_all("select * from %t",array($this->_table));
         return $data;
     }
+	//更新用户名
+	public function update_data($data,$condition){
+		$res = DB::update($this->_table,$data,$condition);
+	}
 }

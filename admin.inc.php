@@ -66,9 +66,9 @@ if($action=="game"){
     $allPageNum = ceil($count/$pagesize);
     $prePage = $page - 1;
     $nextPage = $page + 1;
-    $prePageUrl = "plugin.php?id=xy_lottery:admin&action=luck_list&page={$prePage}";
-    $nextPageUrl = "plugin.php?id=xy_lottery:admin&action=luck_list&page={$nextPage}";
-    $firstPageUrl = "plugin.php?id=xy_lottery:admin&action=luck_list&page=1";
-    $lastPageUrl = "plugin.php?id=xy_lottery:admin&action=luck_list&page={$allPageNum}";
+    $prePageUrl = "plugin.php?id=xy_fifa:admin&action=luck_list&page={$prePage}";
+    $nextPageUrl = "plugin.php?id=xy_fifa:admin&action=luck_list&page={$nextPage}";
+    $firstPageUrl = "plugin.php?id=xy_fifa:admin&action=luck_list&page=1";
+    $lastPageUrl = "plugin.php?id=xy_fifa:admin&action=luck_list&page={$allPageNum}";
     include template("fifa_lucker","","source/plugin/xy_fifa/template");
 }

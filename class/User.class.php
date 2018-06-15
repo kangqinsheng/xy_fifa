@@ -57,7 +57,7 @@ class User
         if($res){
             //获取用户资料成功
             $info = $res['result'];
-            $this->u_nickname = iconv("UTF-8","GBK",$info['member_nick_name']);
+            $this->u_nickname = iconv("UTF-8","GBK//IGNORE",$info['member_nick_name']);
             $this->u_phone = $info['member_phone'];
             //检测数据库
             $res = C::t("#xy_fifa#fifa_user")->get_by_uid($this->u_id);
@@ -71,6 +71,9 @@ class User
                     return false;
                 }
             }else{
+				if($res['u_nickname']==0){
+					C::t("#xy_fifa#fifa_user")->update_data(array('u_nickname'=>$this->u_nickname),array("u_id"=>$this->u_id));
+				}
                 return true;
             }
         }

@@ -21,9 +21,9 @@ if($_POST['ajax']){
 }
 $page_to = $_GET['page_to']?$_GET['page_to']:"fifa_home";//默认显示主页
 if($page_to=="fifa_home"){
-    $u_id = $_SESSION['u_id'];
+    //$u_id = $_SESSION['u_id'];
     //获取当前用户对象
-    $user = new User($u_id);
+    $user = new User();
     if(isset($user->u_id)){
         //获取赛事列表
         $lists = C::t("#xy_fifa#fifa_game")->get_all_list();
